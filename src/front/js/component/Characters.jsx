@@ -1,3 +1,4 @@
+// src/front/js/component/Characters.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -15,23 +16,27 @@ const Characters = () => {
                 const data = await response.json();
                 setCharacters(data.results);
             } catch (error) {
-                console.error("Error fetching data:", error);
+                console.error("Error fetching characters:", error);
             }
         };
         fetchData();
     }, []);
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h1>Characters</h1>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+        <div style={{ padding: "20px", background: "#000", color: "#fff" }}>
+            <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Characters</h1>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "center" }}>
                 {characters.map((character) => (
                     <div key={character.uid} style={{ 
                         border: "1px solid #ccc", 
                         borderRadius: "8px", 
                         padding: "10px", 
                         width: "200px",
-                        boxShadow: "0 4px 8px rgba(0,0,0,0.1)" 
+                        background: "#222",
+                        color: "#fff",
+                        boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
+                        transition: "transform 0.3s, box-shadow 0.3s",
+                        cursor: "pointer"
                     }}>
                         <Link to={`/character/${character.uid}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                             <img
@@ -39,7 +44,7 @@ const Characters = () => {
                                 alt={character.name}
                                 style={{ width: "100%", borderRadius: "8px" }}
                             />
-                            <h3 style={{ marginTop: "10px" }}>{character.name}</h3>
+                            <h3 style={{ marginTop: "10px", textAlign: "center" }}>{character.name}</h3>
                         </Link>
                     </div>
                 ))}

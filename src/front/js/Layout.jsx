@@ -13,7 +13,9 @@ import { Home } from "./pages/Home.jsx";
 import { Demo } from "./pages/Demo.jsx";
 import { Single } from "./pages/Single.jsx";
 import Characters from "./component/Characters.jsx"; 
+import CharactersDetails from"./component/CharactersDetails.jsx"
 import Planets from "./component/Planets.jsx"; 
+import PlanetsDetails from "./component/PlanetsDetails.jsx"
 import Starships from "./component/Starships.jsx"; 
 import StarshipDetails from "./component/StarshipsDetails.jsx"; 
 
@@ -33,7 +35,9 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<Characters />} path="/characters" />
+                        <Route element={<CharactersDetails />} path="/character/:id"/>
                         <Route element={<Planets />} path="/planets" />
+                        <Route element={<PlanetsDetails />} path="/planet/:id"/>
                         <Route element={<Starships />} path="/starships" />
                         <Route element={<StarshipDetails />} path="/starship/:id" />
                         <Route element={<h1>Not found!</h1>} path="*" />

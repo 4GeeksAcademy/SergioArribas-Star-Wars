@@ -1,4 +1,4 @@
-
+// src/front/js/component/StarshipDetails.jsx
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -21,12 +21,12 @@ const StarshipDetails = () => {
         fetchStarship();
     }, [id]);
 
-    if (!starship) return <div>Loading...</div>;
+    if (!starship) return <div style={{ padding: "20px", color: "#fff", background: "#000" }}>Loading...</div>;
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div style={{ padding: "20px", color: "#fff", background: "#000" }}>
             <h1>{starship.properties.name}</h1>
-            <ul>
+            <ul style={{ listStyleType: "none", padding: "0" }}>
                 <li><strong>Model:</strong> {starship.properties.model}</li>
                 <li><strong>Manufacturer:</strong> {starship.properties.manufacturer}</li>
                 <li><strong>Cost in Credits:</strong> {starship.properties.cost_in_credits}</li>

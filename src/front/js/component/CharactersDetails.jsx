@@ -24,7 +24,7 @@ const CharacterDetails = () => {
     if (!character) return <div>Loading...</div>;
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div style={{ padding: "20px", color: "#fff", background: "#000" }}>
             <h1>{character.properties.name}</h1>
             <ul>
                 <li><strong>Height:</strong> {character.properties.height}</li>

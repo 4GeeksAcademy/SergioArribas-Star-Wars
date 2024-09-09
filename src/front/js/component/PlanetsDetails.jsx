@@ -24,7 +24,7 @@ const PlanetsDetails = () => {
     if (!planet) return <div>Loading...</div>;
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div style={{ padding: "20px", color: "#fff", background: "#000" }}>
             <h1>{planet.properties.name}</h1>
             <ul>
                 <li><strong>Diameter:</strong> {planet.properties.diameter}</li>

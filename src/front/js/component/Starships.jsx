@@ -23,7 +23,7 @@ const Starships = () => {
     }, []);
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div style={{ padding: "20px", color: "#fff", background: "#000" }}>
             <h1>Starships</h1>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
                 {starships.map((starship) => (
