@@ -5,6 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         contacts: [],
         contactToEdit: {},
         contactToConfirmationToDelete: {},
+        host_swapi: "https://www.swapi.tech/api/",
+        favorites: []
       },
       actions: {
         updateContactToEdit: (contact) => {
@@ -35,7 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               method: "POST",
             });
           } catch (e) {
-            console.error("Error al crear la agenda:", e);
+            console.error("Error al crear la agenda:", e); 
           }
         },
         createContact: async (contact) => {
@@ -89,6 +91,24 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.error("Error al eliminar el contacto:", e);
           }
         },
+        getCharactersLS: async () => {
+          if(localStorage.getItem("charactersLS")){
+            setStore ({charactersLS: JSON.parse(localStorage.getItem("charactersLS"))})
+            return
+          }
+          const response = await fetch (`${getStore().host_swapi}/people`)
+          return
+          const data = await reponse.json();
+          setStore({charactersLS : data.results})
+          localStorage.setItem("charactersLS. JSON.stringify(data.results")
+          },
+        addFavorites: (newFavorite) => {
+          setStore({ favorites: [...getStore().favorites, newFavorite]})
+        },
+        removeFavorites: (item) => {
+          const newFavorite=getStore().favorites.filter((element) => element !== item)
+        },
+
       },
     };
   };

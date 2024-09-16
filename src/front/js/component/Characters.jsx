@@ -1,6 +1,7 @@
 // src/front/js/component/Characters.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext.js"; // Corregido el path
 
 const API_URL = "https://www.swapi.tech/api/people/";
 
@@ -8,6 +9,7 @@ const getCharacterImage = (id) => `https://starwars-visualguide.com/assets/img/c
 
 const Characters = () => {
     const [characters, setCharacters] = useState([]);
+    const { store, actions } = useContext(Context); 
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,6 +23,10 @@ const Characters = () => {
         };
         fetchData();
     }, []);
+
+    const handleAddFavorite = (character) => {
+        actions.addFavorites(character);
+    };
 
     return (
         <div style={{ padding: "20px", background: "#000", color: "#fff" }}>
@@ -46,6 +52,11 @@ const Characters = () => {
                             />
                             <h3 style={{ marginTop: "10px", textAlign: "center" }}>{character.name}</h3>
                         </Link>
+                        <div>
+                            <span onClick={() => handleAddFavorite(character)}>
+                                <i className="far fa-heart text-danger mx-1"></i>
+                            </span>
+                        </div>
                     </div>
                 ))}
             </div>

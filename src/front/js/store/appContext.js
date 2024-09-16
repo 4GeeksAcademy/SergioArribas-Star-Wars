@@ -20,6 +20,7 @@ const injectContext = (PassedComponent) => {
 
     useEffect(() => {
       state.actions.getContacts();
+      state.actions.getCharactersLS();
     }, []);
     return (
       <Context.Provider value={state}>

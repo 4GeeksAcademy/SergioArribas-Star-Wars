@@ -1,6 +1,7 @@
 // src/front/js/component/Planets.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext.js";
 
 const API_URL = "https://www.swapi.tech/api/planets/";
 
@@ -8,6 +9,7 @@ const getPlanetImage = (id) => `https://starwars-visualguide.com/assets/img/plan
 
 const Planets = () => {
     const [planets, setPlanets] = useState([]);
+    const { store, actions } = useContext(Context);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,6 +23,10 @@ const Planets = () => {
         };
         fetchData();
     }, []);
+
+    const handleAddFavorite = (planet) => {
+        actions.addFavorites(planet);
+    };
 
     return (
         <div style={{ padding: "20px", background: "#000", color: "#fff" }}>
@@ -47,6 +53,11 @@ const Planets = () => {
                             />
                             <h3 style={{ marginTop: "10px", textAlign: "center" }}>{planet.name}</h3>
                         </Link>
+                        <div style={{ textAlign: "center", marginTop: "10px" }}>
+                            <span onClick={() => handleAddFavorite(planet)} style={{ cursor: 'pointer' }}>
+                                <i className="far fa-heart text-danger mx-1"></i>
+                            </span>
+                        </div>
                     </div>
                 ))}
             </div>

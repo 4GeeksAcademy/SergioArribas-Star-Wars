@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { FaUser, FaGlobe, FaSpaceShuttle, FaAddressBook } from 'react-icons/fa'; 
+import { BtnFavorites } from './BtnFavorites.jsx';
 
 export const Navbar = () => {
   return (
@@ -41,6 +42,7 @@ export const Navbar = () => {
           </li>
         </ul>
       </div>
+      <BtnFavorites/>
     </nav>
   );
 };

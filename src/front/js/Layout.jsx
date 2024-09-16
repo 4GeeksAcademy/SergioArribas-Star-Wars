@@ -20,6 +20,8 @@ import StarshipsDetails from "./component/StarshipsDetails.jsx";
 import UpdateContact from "./component/UpdateContact.jsx";
 import CreateANewContact from "./component/CreateANewContact.jsx";
 import Contacts from "./component/Contacts.jsx";
+import CharactersLS from "./component/CharactersLS.jsx";
+import { BtnFavorites } from "./component/BtnFavorites.jsx";
 
 
 const Layout = () => {
@@ -46,6 +48,8 @@ const Layout = () => {
                         <Route path="createContact" element={<CreateANewContact />}></Route>
                         <Route path="updateContact" element={<UpdateContact />}></Route>
                         <Route element={<h1>Not found!</h1>} path="*" />
+                        <Route element={ <CharactersLS/> } path="charactsLS" />
+                        <Route element = { <BtnFavorites />} path="btnfavorites"></Route>
                     </Routes>
                     <Footer />
                 </ScrollToTop>
