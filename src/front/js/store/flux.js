@@ -1,78 +1,97 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			],
-			planets: [],
-			characters: [], 
-			starships: []
-		},
-		actions: {
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-
-			getMessage: async () => {
-				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
-					const data = await resp.json();
-					setStore({ message: data.message });
-					return data;
-				} catch (error) {
-					console.log("Error loading message from backend", error);
-				}
-			},
-
-			changeColor: (index, color) => {
-				const store = getStore();
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-				setStore({ demo: demo });
-			},
-
-			getPlanets: async () => {
-				try {
-					const response = await fetch("https://www.swapi.tech/api/planets");
-					const data = await response.json();
-					setStore({ planets: data.results });
-				} catch (error) {
-					console.error("Error fetching planets:", error);
-				}
-			},
-
-			getCharacters: async () => {
-				try {
-					const response = await fetch("https://www.swapi.tech/api/people");
-					const data = await response.json();
-					setStore({ characters: data.results });
-				} catch (error) {
-					console.error("Error fetching characters:", error);
-				}
-			},
-			getStarships: async () => {
-				try{
-					const response = await fetch("https://www.swapi.tech/api/starships");
-					const data = await response.json();
-					setStore({starships: data.results });
-				} catch (error){
-					console.error("Error fetching starships:", error)
-				}
-			}
-		}
-	};
-};
-
-export default getState;
+    return {
+      store: {
+        apiUrl: "https://playground.4geeks.com/contact/agendas/Sergio",
+        contacts: [],
+        contactToEdit: {},
+        contactToConfirmationToDelete: {},
+      },
+      actions: {
+        updateContactToEdit: (contact) => {
+          setStore({ contactToEdit: contact });
+        },
+        deleteContactToConfirmationToDelete: (contact) => {
+          setStore({ contactToConfirmationToDelete: contact });
+        },
+        getContacts: async () => {
+          const actions = getActions();
+          const store = getStore();
+          try {
+            const response = await fetch(store.apiUrl);
+            if (response.status === 404) {
+              await actions.createAgenda();
+              return;
+            }
+            const data = await response.json();
+            setStore({ contacts: data.contacts });
+          } catch (e) {
+            console.error("Error al obtener los contactos:", e);
+          }
+        },
+        createAgenda: async () => {
+          const store = getStore();
+          try {
+            await fetch(store.apiUrl, {
+              method: "POST",
+            });
+          } catch (e) {
+            console.error("Error al crear la agenda:", e);
+          }
+        },
+        createContact: async (contact) => {
+          const store = getStore();
+          try {
+            const response = await fetch(`${store.apiUrl}/contacts`, {
+              method: "POST",
+              body: JSON.stringify(contact),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            if (response.ok) {
+              console.log("Contacto creado");
+            }
+          } catch (e) {
+            console.error("Error al crear el contacto:", e);
+          }
+        },
+        updateContact: async (id, contact) => {
+          const store = getStore();
+          const actions = getActions();
+          try {
+            const response = await fetch(`${store.apiUrl}/contacts/${id}`, {
+              method: "PUT",
+              body: JSON.stringify(contact),
+              headers: { "Content-Type": "application/json" },
+            });
+            await response.json();
+            actions.getContacts(); // Actualiza la lista de contactos
+          } catch (e) {
+            console.log("Error al actualizar el contacto:", e);
+          }
+        },
+        deleteContact: async (id) => {
+          try {
+            const store = getStore();
+            const response = await fetch(`${store.apiUrl}/contacts/${id}`, {
+              method: "DELETE",
+            });
+            if (!response.ok) {
+              alert("No se puede borrar el contacto");
+              throw new Error("No se pudo borrar el contacto");
+            } else {
+              const filteredContacts = store.contacts.filter(
+                (contact) => contact.id !== id
+              );
+              setStore({ contacts: filteredContacts });
+            }
+          } catch (e) {
+            console.error("Error al eliminar el contacto:", e);
+          }
+        },
+      },
+    };
+  };
+  
+  export default getState;
+  

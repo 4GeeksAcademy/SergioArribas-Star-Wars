@@ -8,19 +8,7 @@ export const Home = () => {
 
 	return (
 		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
+			<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9UOgeg0xCOug3BwnPVVdwNhAdY01Qs_Nqcw&s" alt="Fondo star wars" />
 		</div>
 	);
 };
